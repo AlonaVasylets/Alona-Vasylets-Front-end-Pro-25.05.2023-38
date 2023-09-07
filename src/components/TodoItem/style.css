@@ -1,0 +1,32 @@
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 20px;
+  list-style: none;
+  border: 1px solid #f1619f;
+  border-radius: 5px;
+  background: #ffcce2;
+  min-width: 800px;
+  color: #292627;
+  word-break: break-all;
+}
+.input-checkbox {
+  margin: 0;
+}
+.text-todo {
+  margin: 0;
+}
+.btn-delete-todo {
+  border: 1px solid #f1619f;
+  border-radius: 5px;
+  background: #ffeaf3;
+  padding: 5px;
+  width: 55px;
+  cursor: pointer;
+}
+.btn-delete-todo:hover {
+  background: #f1619f;
+  color: #ffeaf3;
+}
