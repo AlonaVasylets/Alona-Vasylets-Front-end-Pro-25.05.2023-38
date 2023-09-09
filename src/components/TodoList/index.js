@@ -5,31 +5,33 @@ import "./style.css";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
+  const [nextId, setNextId] = useState(1);
 
   const addTodo = (todoText) => {
-    setTodos([...todos, { text: todoText, completed: false }]);
+    const newTodo = { id: nextId, text: todoText, completed: false };
+    setTodos([...todos, newTodo]);
+    setNextId(nextId + 1);
   };
 
-  const toggleTodo = (index) => {
-    const updatedTodos = [...todos];
-    updatedTodos[index].completed = !updatedTodos[index].completed;
+  const toggleTodo = (id) => {
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    );
     setTodos(updatedTodos);
   };
 
-  const deleteTodo = (index) => {
-    const updatedTodos = [...todos];
-    updatedTodos.splice(index, 1);
+  const deleteTodo = (id) => {
+    const updatedTodos = todos.filter((todo) => todo.id !== id);
     setTodos(updatedTodos);
   };
 
   return (
     <div className="todo-container">
       <ul className="todo-list">
-        {todos.map((todo, index) => (
+        {todos.map((todo) => (
           <TodoItem
-            key={index}
+            key={todo.id}
             todo={todo}
-            index={index}
             toggleTodo={toggleTodo}
             deleteTodo={deleteTodo}
           />

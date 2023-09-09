@@ -1,19 +1,19 @@
 import React from "react";
 import './style.css';
 
-const TodoItem = ({ todo, index, toggleTodo, deleteTodo }) => {
+const TodoItem = ({ todo, toggleTodo, deleteTodo }) => {
   return (
     <li className="todo-item">
       <input className="input-checkbox"
         type="checkbox"
         checked={todo.completed}
-        onChange={() => toggleTodo(index)}
+        onChange={() => toggleTodo(todo.id)}
       />
       <p className="text-todo"
         style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
         {todo.text}
       </p>
-      <button className="btn-delete-todo" onClick={() => deleteTodo(index)}>Delete</button>
+      <button className="btn-delete-todo" onClick={() => deleteTodo(todo.id)}>Delete</button>
     </li>
   );
 };
