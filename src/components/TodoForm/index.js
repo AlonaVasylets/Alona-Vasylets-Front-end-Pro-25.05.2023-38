@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 import './style.css';
+import { useDispatch } from 'react-redux';
+import { addTodo } from '../../store/actions';
 
-const TodoForm = ({ addTodo }) => {
-  const [inputText, setInputText] = useState('');
+const TodoForm = () => {
+  const [todoText, setTodoText] = useState('');
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (inputText.trim() !== '') {
-      addTodo(inputText);
-      setInputText('');
+  const handleAddTodo = () => {
+    if (todoText.trim() !== '') {
+      dispatch(addTodo(todoText));
+      setTodoText('');
     }
   };
 
   return (
-    <form className='todo-form' onSubmit={handleSubmit}>
+    <div className='todo-cont'>
       <input className='todo-input'
         type="text"
-        value={inputText}
-        onChange={(e) => setInputText(e.target.value)}
+        value={todoText}
+        onChange={(e) => setTodoText(e.target.value)}
       />
-      <button className='btn-add' type="submit">Add Todo</button>
-    </form>
+      <button className='btn-add' onClick={handleAddTodo}>Add Todo</button>
+    </div>
   );
 };
 

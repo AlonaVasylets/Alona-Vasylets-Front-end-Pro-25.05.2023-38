@@ -1,43 +1,44 @@
-import React, { useState } from "react";
-import TodoItem from "../TodoItem";
-import TodoForm from "../TodoForm";
+import React from 'react';
+import TodoForm from '../TodoForm';
+import { useSelector, useDispatch } from 'react-redux';
+import { addTodo, toggleTodo, deleteTodo } from '../../store/actions';
+import { selectTodos } from '../../store/selectors';
 import "./style.css";
 
 const TodoList = () => {
-  const [todos, setTodos] = useState([]);
-  const [nextId, setNextId] = useState(1);
+  const todos = useSelector(selectTodos);
+  const dispatch = useDispatch();
 
-  const addTodo = (todoText) => {
-    const newTodo = { id: nextId, text: todoText, completed: false };
-    setTodos([...todos, newTodo]);
-    setNextId(nextId + 1);
+  const handleAddTodo = (text) => {
+    dispatch(addTodo(text));
   };
 
-  const toggleTodo = (id) => {
-    const updatedTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    );
-    setTodos(updatedTodos);
+  const handleToggleTodo = (id) => {
+    dispatch(toggleTodo(id));
   };
 
-  const deleteTodo = (id) => {
-    const updatedTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(updatedTodos);
+  const handleDeleteTodo = (id) => {
+    dispatch(deleteTodo(id));
   };
 
   return (
     <div className="todo-container">
       <ul className="todo-list">
         {todos.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            toggleTodo={toggleTodo}
-            deleteTodo={deleteTodo}
-          />
+          <li className='todo-item' key={todo.id}>
+            <input
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() => handleToggleTodo(todo.id)}
+            />
+            <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
+              {todo.text}
+            </span>
+            <button className='btn-delete-todo' onClick={() => handleDeleteTodo(todo.id)}>Delete</button>
+          </li>
         ))}
       </ul>
-      <TodoForm addTodo={addTodo} />
+      <TodoForm addTodo={handleAddTodo} />
     </div>
   );
 };
