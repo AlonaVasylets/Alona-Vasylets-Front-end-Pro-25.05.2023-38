@@ -1,7 +1,8 @@
-import { ADD_TODO, TOGGLE_TODO, DELETE_TODO } from './actions';
+import { ADD_TODO, TOGGLE_TODO, DELETE_TODO, FETCH_TODOS_SUCCESS, FETCH_TODOS_FAILURE } from './actions';
 
 const initialState = {
     todos: [],
+    fetchedData: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -31,6 +32,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 todos: state.todos.filter((todo) => todo.id !== action.payload),
             };
+        case FETCH_TODOS_SUCCESS:
+            return {
+                ...state,
+                fetchedData: action.payload,
+            };
+        case FETCH_TODOS_FAILURE:
+            return state;
         default:
             return state;
     }

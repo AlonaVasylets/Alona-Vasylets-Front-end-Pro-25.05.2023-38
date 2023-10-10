@@ -34,3 +34,20 @@
   background: #f1619f;
   color: #ffeaf3;
 }
+
+.btn-add-data {
+  box-sizing: border-box;
+  padding: 10px 35px;
+  border-radius: 5px;
+  border: transparent;
+  background: #d02770;
+  cursor: pointer;
+  color: #ffeaf3;
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.btn-add-data:hover {
+  background: #f1619f;
+}
